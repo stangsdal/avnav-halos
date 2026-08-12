@@ -1,0 +1,5 @@
+--- /usr/lib/avnav/plugins/ochartsng/plugin.py
++++ /usr/lib/avnav/plugins/ochartsng/plugin.py
+@@ -1,1 +1,1 @@
+-        self.registerUserApp("http://$HOST:%d/static/%s" % (self.port, self.appName))
++        self.registerUserApp("https://$HOST:4432/static/%s" % self.appName)
