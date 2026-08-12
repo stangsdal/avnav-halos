@@ -1,0 +1,20 @@
+# WebSocket HTTPS patch
+
+This patch is intentionally kept as a reference because AvNav's WebSocket
+client location can differ between releases.
+
+If a release contains a hard-coded browser URL like:
+
+    ws://$HOST:<port>/...
+
+change only the scheme to:
+
+    wss://$HOST:<port>/...
+
+When AvNav is served through the same HTTPS origin, prefer a relative URL
+(/ws) or derive the scheme from window.location.protocol. Traefik forwards
+WebSocket Upgrade headers automatically; no separate WebSocket router is
+required.
+
+Do not apply this file blindly. Confirm the exact source line in the selected
+AvNav release first.
