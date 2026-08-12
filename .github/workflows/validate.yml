@@ -1,0 +1,24 @@
+name: Validate
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  static:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check required files
+        run: |
+          test -f Dockerfile
+          test -f compose/avnav-halos.yml
+          test -f patches/ochartsng-https.patch
+          test -f patches/avnav-websocket-wss.patch
+          test -x scripts/apply-patches.sh
+      - name: Check image and network contract
+        run: |
+          grep -Fq 'xfreex/avnav-stable:20251028' Dockerfile
+          grep -Fq 'image: avnav-halos:20251028' compose/avnav-halos.yml
+          grep -Fq 'app-4432' compose/avnav-halos.yml
+          grep -Fq 'halos-proxy-network' compose/avnav-halos.yml
